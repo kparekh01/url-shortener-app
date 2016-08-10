@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  devise_for :users
+
+  devise_scope :user do #if user is signed in , show them the index page
+   authenticated :user do
+     root 'links#index', as: :authenticated_root
+   end
+
+   unauthenticated do #if no user is signed in, show them the sign in page.
+     root 'devise/registrations#new', as: :unauthenticated_root
+   end
+ end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
